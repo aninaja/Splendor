@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Login Page</title>
+
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+
+        {% include 'snippets/css.html' %}
+    </head>
+
+    <body class="hold-transition layout-top-nav">
+        <div class="wrapper">
+            <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+                <div class="container px-1 py-3 px-md-12">
+                    <a href="#" class="navbar-brand"><img src="{% static 'dist/img/splendor_logo.png' %}" class="brand-image" alt="Image Logo" width="100%" /></a>
+                        <ul class="navbar-nav">
+                            <li>
+                                <h4>Log In</h4>
+                            </li>
+                        </ul>
+                </div>
+            </nav>
+        </div>
+       <div class="background-div login-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 align-self-center order-md-1 order-2">
+                    <h1 class="display-3 font-weight-bolder banner-title">
+                        THE BEST CLINIC IN THE INDUSTRY
+                    </h1>
+                    <p class="lead banner-description">
+                        A most prefered dermatologic clinic by providing the latest, quality and affordable dermatologic and cosmetic surgical treatment in a clean, sanitized and safe facility.
+                    </p>
+                </div>
+
+                <div class="col-md-5 ml-auto order-md-2 order-1">
+                    <div class="">
+                        <!-- /.login-logo -->
+                        <div class="card card-outline">
+                            <div class="card-header text-center">
+                                <h4>Splendor Skin</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="login-box-msg">Please log in to access this page</p>
+                                {% block content %} {% endblock content%}
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.login-box -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% include 'snippets/js.html' %}
+
+<!-- Custom JS -->
+{% block script %} {% endblock script %}
+    </body>
+</html>

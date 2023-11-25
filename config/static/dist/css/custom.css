@@ -4,6 +4,11 @@
     color: #dc3545;
 }
 
+.help-text {
+    margin-top: 0px;
+    font-size: 80%;
+}
+
 .errorlist {
     list-style: none;
     padding-left: 0px;
@@ -12,4 +17,76 @@
 
 .fa-pencil-alt:before{
     margin-right: 25px;
+}
+
+.fa-eye:before{
+    margin-right: 25px;
+}
+
+.content-header h1{
+    margin-bottom:10px;
+}
+
+.background-div {
+    /*background: url('../img/loginbg.png') no-repeat;*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: auto;
+    padding-top: 130px;
+    padding-bottom: 186px;
+
+}
+
+.login-page {
+    background: linear-gradient(to right, #1a70bb, #79e009);
+    background: linear-gradient(30deg, #1a70bb, #79e009);
+}
+
+.banner-title {
+   text-shadow: 1px 1px 0 #FAFAFA;
+   color: #19529C;
+}
+
+.banner-description {
+    text-shadow: 1.5px 1.5px 5px #0F0F0F;
+    color: #FFFFFF;
+}
+.text-right {
+    text-align: right;
+}
+
+.actions-gap {
+    padding-right: 16px;
+}
+
+.patient-qr {
+    text-align: center;
+}
+
+.canvas-chart {
+    margin: 0px auto;
+    text-align: center;
+}
+
+.qr-card-body {
+    text-align: center;
+}
+
+#reader {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    padding-bottom: 100%;
+    position: relative;
+    margin: 0 auto;
+}
+
+#html5-qrcode-anchor-scan-type-change{
+        display: none;
+}
+
+
+.profile {
+    color: #0090FF;
 }

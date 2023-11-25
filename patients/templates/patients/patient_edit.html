@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block page_title %} Patient {% endblock page_title %}
+
+{% block content %}
+
+<!-- Main content -->
+<section class="content">
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-12">
+             {% if messages %}
+              <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                {% for message in messages %}
+                  <span class="lh-1">{{ message }}</span>
+                {% endfor %}
+              </div>
+              {% endif %}
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-12">
+            <div class="card card-outline card-info">
+               <div class="card-header">
+                  <h3 class="card-title">Edit Patient</h3>
+               </div>
+               <!-- /.card-header -->
+                <form class="form-horizontal" method="POST" novalidate>
+                     <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group ">
+                           <label for="" class="control-label">First Name:</label>
+                           <div class="col-md-4">
+                              {{ registration_form.first_name }}
+                              <span class="help-block">{{ registration_form.first_name.errors }}</span>
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label for="" class="control-label">Last Name:</label>
+                           <div class="col-md-4">
+                              {{ registration_form.last_name }}
+                              <span class="help-block">{{ registration_form.last_name.errors }}</span>
+                           </div>
+                        </div>
+                         <div class="form-group">
+                           <label for="" class="control-label">Gender:</label>
+                           <div class="col-md-4">
+                              {{ custom_form.gender }}
+                           </div>
+                        </div>
+                         <div class="form-group">
+                           <label for="" class="control-label">Birthdate:</label>
+                           <div class="col-md-4">
+                              {{ registration_form.date_of_birth }}
+                              <span class="help-block">{{ registration_form.date_of_birth.errors }}</span>
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label for="" class="control-label">Mobile Phone:</label>
+                           <div class="col-md-4">
+                              {{ registration_form.mobile }}
+                               <span class="help-block">{{ registration_form.mobile.errors }}</span>
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label for="" class="control-label">Email:</label>
+                           <div class="col-md-4">
+                              {{ registration_form.email }}
+                              <span class="help-block">{{ registration_form.email.errors }}</span>
+                           </div>
+                        </div>
+                          <div class="form-group">
+                           <label for="" class="control-label">Address:</label>
+                           <div class="col-md-4">
+                              {{ custom_form.address }}
+                           </div>
+                           <span class="help-block">{{ custom_form.address.errors }}</span>
+                        </div>
+                        <!--<div class="form-check">
+                            <div class="col-md-4">
+                               {{ registration_form.is_active }}
+                                <label class="form-check-label" for="">Is active?</label>
+                            </div>
+                        </div>-->
+                         <div class="form-group">
+                             <div class="col-md-4">
+                                 <a href="{% url 'patients:reset_password' patient.id %}"><p class="text-right">Reset password</p></a>
+                             </div>
+                        </div>
+                     </div>
+                  <div class="card-footer">
+                     <button type="submit" class="btn btn-info">Save</button>
+                  </div>
+               </form>
+               <!-- /.card-body -->
+            </div>
+         </div>
+         <!-- /.col -->
+      </div>
+      <!-- /.row -->
+   </div>
+   <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block page_title %} Group {% endblock page_title %}
+
+
+{% block content %}
+
+<!-- Main content -->
+<section class="content">
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-12">
+            <div class="card card-outline card-info">
+               <div class="card-header">
+                  <h3 class="card-title">Edit Group</h3>
+               </div>
+               <!-- /.card-header -->
+               <form class="form-horizontal" id="frm" method="POST" enctype="multipart/form-data" action="{% url 'users:group_edit' group.id %}" novalidate>
+                  <div class="card-body">
+                     {% csrf_token %}
+                     <div class="form-group">
+                          <label for="" class="control-label">Group Name:</label>
+                          <div class="col-md-4">
+                               <input name="group_name" value="{{group.name}}" type="textbox" class="form-control" />
+                          </div>
+                     </div>
+
+                     <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Permissions:</label>
+                                    <select id="sbPermission" class="form-control" multiple="multiple" style="height: 250px; margin-left:8px"></select>
+                                    <div style="margin: 10px -9px 0 9px;">
+                                        <button type="button" id="btnAll" class="btn btn-primary btn-block"><i class="fas fa-solid fa-arrow-right"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1" valign="bottom">
+                                <div style="margin-top: calc(50% + 60px); margin-left: 30px;">
+                                    <button type="button" id="btnChoose" class="btn btn-block bg-gradient-primary btn-sm"><i class="fas fa-solid fa-arrow-right"></i></button>
+                                    <br>
+                                    <button type="button" id="btnRemove"  class="btn btn-block bg-gradient-primary btn-sm"><i class="fas fa-solid fa-arrow-left"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label" ></label>
+                                    <select class="form-control" id="permission" name="permission" multiple="multiple" style="height: 250px; margin: 8px 0 0 20px">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                  </div>
+                     <div class="card-footer">
+                         <button type="submit" class="btn btn-info">Save</button>
+                     </div>
+               </form>
+               <!-- /.card-body -->
+            </div>
+         </div>
+         <!-- /.col -->
+      </div>
+      <!-- /.row -->
+   </div>
+   <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+{% endblock content %}
+
+{% block script %}
+<script>
+  $(document).ready(function(){
+    var permission_id = [
+      {% for data in permission %}
+        `{{data.id}}`,
+      {% endfor %}
+    ],permission_title = [
+      {% for data in permission %}
+        `{{data}}`,
+      {% endfor %}
+    ],group_id = [
+      {% for data in group_permission %}
+        `{{data.id}}`,
+      {% endfor %}
+    ],group_name = [
+      {% for data in group_permission %}
+        `{{data}}`,
+      {% endfor %}
+    ]
+
+    $(permission_id).each(function(key, value){
+
+      $('#sbPermission').append(`<option value="${value}">${permission_title[key]}</option>`);
+
+    });//end of permission list
+
+    $(group_id).each(function(key, value){
+
+      $('#permission').append(`<option value="${value}">${group_name[key]}</option>`);
+
+    });//end of each
+
+
+    $('#btnChoose').click(function(){
+
+      $('#sbPermission :selected').each(function(){
+
+        $('#permission').append(`<option value="${$(this).val()}">${$(this).html()}</option>`);
+
+        $(this).remove();
+
+      });//end of each
+
+    });//end of btnChoose
+
+    $('#btnRemove').click(function(){
+
+      $('#permission :selected').each(function(){
+
+        $('#sbPermission').append(`<option value="${$(this).val()}">${$(this).html()}</option>`);
+
+        $(this).remove();
+
+      });//end of each
+
+
+    });//end of btnRemove
+
+    $('#btnAll').click(function(){
+
+      $('#sbPermission option').each(function(){
+
+          $('#permission').append(`<option value="${$(this).val()}">${$(this).html()}</option>`);
+
+          $(this).remove();
+
+      });//end of each
+
+    });//end of btnAll
+
+    $('#frm').on("submit", function(e){
+
+      // selected_permission = $('#permission option').length
+
+      // if(selected_permission == 0){
+
+      //   $('#sbPermission option').each(function(){
+
+      //     $('#permission').append(`<option value="${$(this).val()}" selected="selected">${$(this).html()}</option>`);
+
+      //   });
+      // }
+
+      // else{
+
+
+      // }
+      $('#permission option').each(function(key,val){
+
+          $(this).prop('selected',true)
+
+      });//end of each option
+
+    });//end of submit
+
+
+
+  });
+</script>
+
+{% endblock script %}

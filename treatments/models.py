@@ -8,7 +8,7 @@ from django.utils import timezone
 # Create your models here.
 class Service(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    description = models.CharField(max_length=255, default=None, blank=True)
+    description = models.CharField(max_length=255)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -18,6 +18,9 @@ class Service(models.Model):
 
     class Meta:
         db_table = 'services'
+        permissions = [
+            ("disable_service", "Can disable service"),
+        ]
 
 
 class TreatmentArea(models.Model):
@@ -31,6 +34,9 @@ class TreatmentArea(models.Model):
 
     class Meta:
         db_table = 'treatment_areas'
+        permissions = [
+            ("disable_treatmentarea", "Can disable treatment area"),
+        ]
 
 
 class PriceType(models.Model):
@@ -44,6 +50,9 @@ class PriceType(models.Model):
 
     class Meta:
         db_table = 'price_types'
+        permissions = [
+            ("disable_pricetype", "Can disable price type"),
+        ]
 
 
 class Treatment(models.Model):
@@ -52,13 +61,15 @@ class Treatment(models.Model):
     type = models.ForeignKey(PriceType, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True )
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
         db_table = 'treatments'
+        permissions = [
+            ("disable_treatment", "Can disable treatment"),
+        ]

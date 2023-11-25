@@ -1,0 +1,50 @@
+{% extends 'customer_base.html' %}
+{% block title %} Transactions {% endblock %}
+
+{% block content %}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 pl-0">
+                <h4>Transactions</h4>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="card card-outline card-info">
+    <div class="card-header ">
+          <h3 class="card-title">Points Transaction History</h3>
+          <div class="card-tools">
+             <a href="{% url 'redeem_points:redeemed_list' %}" class="btn btn-sm btn-block bg-gradient-info">
+                Points Redeemed
+             </a>
+          </div>
+    </div>
+
+    <div class="card-body pt-4">
+        <div class="col-12">
+            {% for transact in transaction_list %}
+             <ul class="list-group list-group ml-1">
+                 <li class="list-group-item">
+                     <div class="row">
+                         <div class="col-6">
+                             <h6>{{ transact.reference_id }}</h6>
+                             {% if transact.offer_code %}
+                                <h6 class="pt-2">{{transact.offer_code|upper}}</h6>
+                             {% endif %}
+                         </div>
+                         <div class="col-6">
+                             <h6 class="text-right">{{ transact.date_added|date:"d M Y G:i"}}</h6>
+                             <h6 class= "text-right"><b>+{{transact.points}}</b></h6>
+                         </div>
+                     </div>
+                </li>
+             </ul>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card-footer"></div>
+</div>
+{% endblock %}

@@ -1,23 +1,26 @@
 {% extends 'base.html' %}
-
+{% block title %} Treatment Area {% endblock %}
 {% block page_title %} Treatment Areas {% endblock %}
 
 {% block content %}
 
-	{% if messages %}
-    <div class="alert alert-success alert-dismissible">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-      {% for message in messages %}
-        <p>{{ message }}</p>
-      {% endfor %}
-    </div>
-    {% endif %}
-
 	<section class="content">
 	   <div class="container-fluid">
+		    <div class="row">
+			   <div class="col-12">
+				   {% if messages %}
+					<div class="alert alert-success alert-dismissible">
+					  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+					  {% for message in messages %}
+						<span class="lh-1">{{ message }}</span>
+					  {% endfor %}
+					</div>
+					{% endif %}
+			   </div>
+		   </div>
 		  <div class="row">
 			 <div class="col-12">
-				<div class="card card-outline card-info">
+				<div class="card card-outline card-primary">
 				   <div class="card-header">
 					  <h3 class="card-title">Treatment Area List</h3>
 					  <div class="card-tools">
@@ -28,11 +31,12 @@
 				   </div>
 				   <!-- /.card-header -->
 				   <div class="card-body">
-					  <table id="treatment_area-table" class="table table-bordered table-hover">
+					  <table id="area-table" class="table table-striped projects">
 						 <thead>
 							<tr>
 								<th>ID</th>
 								<th>TREATMENT AREA</th>
+								<th>STATUS</th>
 								<th>ACTIONS</th>
 							</tr>
 						 </thead>
@@ -47,10 +51,8 @@
 										<span class="badge bg-danger">Inactive</span>
 									{% endif %}
 								<td>
-									<a href="{% url 'treatments:area_edit' area.id %}" class="pull-right text-blue">
-										<i class="fas fa-pencil-alt"></i></a>
-									<a href="{% url 'treatments:area_delete' area.id %}" class="pull-right text-red">
-										<i class="fas fa-ban"></i></a>
+									<a href="{% url 'treatments:area_edit' area.id %}" class="pull-right text-blue actions-gap"><i class="fas fa-pencil-alt"></i></a>
+									<a href="{% url 'treatments:area_disable' area.id %}" class="pull-right text-red actions-gap"><i class="fas fa-ban"></i></a>
 								</td>
 							</tr>
 							{% endfor %}
@@ -69,3 +71,21 @@
 	<!-- /.content -->
 
 {% endblock %}
+
+
+{% block script %}
+    <script>
+      $(function () {
+        $('#area-table').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": true,
+          "ordering": false,
+          "info": true,
+          "autoWidth": false,
+          "responsive": true,
+          "pageLength": 10,
+        });
+      });
+    </script>
+{% endblock script %}

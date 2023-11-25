@@ -29,13 +29,17 @@ SECRET_KEY = 'django-insecure-jy_*11sj-6i9tbx!8v8j#!34pin(d^bcbffo@a)fv+okd8q-*5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'user_profile.User'
+
+AUTHENTICATION_BACKENDS = ['user_profile.backends.CustomAuthenticationBackend']
 
 LOGIN_REDIRECT_URL = '/dashboard'
 
 LOGIN_URL = '/admin'
+
+CSRF_TRUSTED_ORIGINS = ['https://splendorloyalty.skin', 'https://www.splendorloyalty.skin']
 
 
 # Application definition
@@ -53,6 +57,12 @@ INSTALLED_APPS = [
     'treatments',
     'patients',
     'appointments',
+    'loyalty_app',
+    'transactions',
+    'redeem_points',
+    'offers',
+    'reports'
+
 ]
 
 MIDDLEWARE = [
@@ -86,6 +96,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
+PUSHER_APP_ID = '1711676'
+PUSHER_KEY = '35f3c6a202ac29846649'
+PUSHER_SECRET = 'd76d685ea0a5379a5089'
+PUSHER_CLUSTER = 'ap1'
+
+
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -111,9 +127,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    # },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
@@ -125,7 +141,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Singapore'
 
 USE_I18N = True
 
@@ -142,6 +158,10 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "config/static",
 ]
+STATIC_ROOT = "/var/www/static/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

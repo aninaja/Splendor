@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-
-{% block page_title %} Users {% endblock page_title %}
+{% block title %} System User {% endblock %}
+{% block page_title %} System Users {% endblock page_title %}
 
 
 {% block content %}
@@ -8,9 +8,21 @@
 <!-- Main content -->
 <section class="content">
    <div class="container-fluid">
+       <div class="row">
+			   <div class="col-12">
+				   {% if messages %}
+					<div class="alert alert-success alert-dismissible">
+					  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+					  {% for message in messages %}
+						<span class="lh-1">{{ message }}</span>
+					  {% endfor %}
+					</div>
+					{% endif %}
+			   </div>
+		   </div>
       <div class="row">
          <div class="col-12">
-            <div class="card card-outline card-info">
+            <div class="card card-outline card-primary">
                <div class="card-header">
                   <h3 class="card-title">System User List</h3>
                   <div class="card-tools">
@@ -21,29 +33,44 @@
                </div>
                <!-- /.card-header -->
                <div class="card-body">
-                  <table id="users-table" class="table table-bordered table-hover">
+                  <table id="users-table" class="table table-striped projects">
                      <thead>
                         <tr>
-                           <th>USER ID</th>
-                           <th>FIRST NAME</th>
-                           <th>LAST NAME</th>
-                            <th>IS_PATIENT</th>
-                           <th>USER GROUP</th>
-                           <th>EMAIL ADDRESS</th>
-                           <th>-</th>
+<!--                            <th>USER ID</th>-->
+                            <th>USER GROUP</th>
+                            <th>FIRST NAME</th>
+                            <th>LAST NAME</th>
+                            <th>MOBILE #</th>
+                            <th>EMAIL ADDRESS</th>
+                            <th>STATUS</th>
+                            <th>ACTIONS</th>
                         </tr>
                      </thead>
                      <tbody>
-                        {% for user in object_list %}
+                        {% for user in users %}
                         <tr>
-                            <td>{{ user.id }}</td>
+<!--                            <th>{{ user.id }}</th>-->
+                            <td>
+                                {% for group in user.groups.all %}
+                                    {{ group.name }}
+                                {% endfor %}
+                            </td>
                             <td>{{ user.first_name }}</td>
                             <td>{{ user.last_name }}</td>
-                            <td>{{ user.is_patient }}</td>
-                            <td>{{ user.group }}</td>
-                            <td>{{ user.email }}</td>
+                            <td>{{ user.mobile }}</td>
+                            <td>{{ user.email}}</td>
                             <td>
-                              <a href="#" class="pull-right text-blue"><i class="fas fa-pencil-alt"></i></a>
+                                {% if user.is_active %}
+                                    <span class="badge bg-success">Active</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Inactive</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'users:edit' user.id %}" class="pull-right text-blue mr-3"><i class="fas fa-pencil-alt"></i></a>
+                                {% if not user.is_superuser %}
+                                    <a href="{% url 'users:disable' user.id %}" class="pull-right text-red"><i class="fas fa-ban"></i></a>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}
@@ -70,7 +97,7 @@
           "paging": true,
           "lengthChange": false,
           "searching": true,
-          "ordering": true,
+          "ordering": false,
           "info": true,
           "autoWidth": false,
           "responsive": true,

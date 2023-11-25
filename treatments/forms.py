@@ -17,26 +17,27 @@ class ServiceForm(ModelForm):
         ],
     )
 
-    description = forms.CharField(
-        widget=forms.Textarea(
-            attrs={
-                'class': 'form-control',
-                'rows': 5,
-            }))
+    # description = forms.CharField(
+    #     required=False,
+    #     widget=forms.Textarea(
+    #         attrs={
+    #             'class': 'form-control',
+    #             'rows': 5,
+    #         }))
 
     is_active = forms.BooleanField(
         required=False,
         widget=forms.CheckboxInput(
             attrs={
                 'class': 'form-check-input',
-            }
-        )
+            }),
+        initial=True
 
     )
 
     class Meta:
         model = Service
-        fields = ['name', 'description', 'is_active']
+        fields = ['name', 'is_active']
 
 
 class TreatmentForm(ModelForm):
@@ -61,12 +62,13 @@ class TreatmentForm(ModelForm):
         ],
     )
 
-    description = forms.CharField(
-        widget=forms.Textarea(
-            attrs={
-                'class': 'form-control',
-                'rows': 5,
-            }))
+    # description = forms.CharField(
+    #     required=False,
+    #     widget=forms.Textarea(
+    #         attrs={
+    #             'class': 'form-control',
+    #             'rows': 5,
+    #         }))
 
     area = forms.ModelChoiceField(
         queryset=TreatmentArea.objects.exclude(is_active=False),
@@ -80,19 +82,13 @@ class TreatmentForm(ModelForm):
             attrs={
                 'class': 'form-control'}))
 
-    price = forms.DecimalField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control'}),
-    )
-
     is_active = forms.BooleanField(
         required=False,
         widget=forms.CheckboxInput(
             attrs={
                 'class': 'form-check-input',
-            }
-        )
+            }),
+        initial=True
 
     )
 
@@ -101,10 +97,8 @@ class TreatmentForm(ModelForm):
         fields = [
             'service',
             'name',
-            'description',
             'area',
             'type',
-            'price',
             'is_active'
         ]
 
@@ -126,8 +120,8 @@ class AreaForm(ModelForm):
         widget=forms.CheckboxInput(
             attrs={
                 'class': 'form-check-input',
-            }
-        )
+            }),
+        initial=True
 
     )
 
@@ -153,7 +147,8 @@ class TypeForm(ModelForm):
         widget=forms.CheckboxInput(
             attrs={
                 'class': 'form-check-input',
-            })
+            }),
+        initial=True
     )
 
     class Meta:
