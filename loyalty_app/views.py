@@ -26,6 +26,7 @@ def home(request):
 
 
 def process_login(request):
+    treatments = Treatment.objects.filter(is_active=True)
     if request.method == 'POST':
         username = request.POST.get('mobile')
         password = request.POST.get('password')
@@ -51,5 +52,8 @@ def process_login(request):
             messages.error(request, "Your username and password didn't match. Please try again.")
             return render(request, 'loyalty/loyalty_login.html')
 
-    return render(request, 'loyalty/loyalty_login.html')
+    return render(request, 'loyalty/loyalty_login.html', {'treatments': treatments})
+
+
+
 

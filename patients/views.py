@@ -56,7 +56,7 @@ def patient_create(request):
 
         phone_number = registration.mobile
         formatted_phone_number = f"+63{phone_number[1:]}"
-        message_body = f"Your username is {registration.mobile} and {surname}{birthdate} for password."
+        message_body = f"Your username is {phone_number} and {surname}{birthdate} for password."
         send_sms(formatted_phone_number, message_body)
 
         messages.success(request, 'Patient registered successfully.')

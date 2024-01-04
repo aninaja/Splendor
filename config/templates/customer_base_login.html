@@ -14,6 +14,7 @@
 
     <body class="hold-transition layout-top-nav">
         <div class="wrapper">
+
             <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
                 <div class="container px-1 py-3 px-md-12">
                     <a href="#" class="navbar-brand"><img src="{% static 'dist/img/splendor_logo.png' %}" class="brand-image" alt="Image Logo" width="100%" /></a>
@@ -57,6 +58,25 @@
             </div>
         </div>
     </div>
+
+
+       <div class="card-body">
+           <p class="pt-3 pb-3" style="text-align:center; font-size:50px">Treatments</p>
+                <div class="row">
+                    {% for treatment in treatments %}
+                    <div class="col-12 col-md-4">
+                        <div class="card" style="height:120px">
+                            <div class="card-body pt-4">
+                                    <h3 style="text-align:center">{{ treatment.name }}</h3>
+                                    <h6 class="text-muted pt-2" style="text-align:center">{{ treatment.description }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
 
 {% include 'snippets/js.html' %}
 
